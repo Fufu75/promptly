@@ -11,16 +11,20 @@ per client.
 
 ---
 
-> ### Security notice — read before deploying
+> ### Where the OpenAI key lives, and why
 >
-> This project reads the OpenAI key through `VITE_OPENAI_API_KEY`. **Vite inlines
-> every `VITE_`-prefixed variable into the client bundle at build time**, so that
-> key is served to every visitor and can be extracted from the JavaScript.
+> The key is read from `OPENAI_API_KEY` by `server/index.js` and **never reaches
+> the browser**. The client posts its messages to `POST {VITE_SITEGEN_URL}/ai/chat`
+> and the server relays them to OpenAI.
 >
-> Do not deploy this as-is with a real key. The OpenAI call belongs in
-> `server/`, behind an endpoint the browser calls — never in the client. This is
-> a known flaw in the current architecture, kept visible here rather than
-> quietly papered over.
+> The `VITE_` prefix is deliberately absent: Vite inlines every `VITE_`-prefixed
+> variable into the client bundle at build time, so a key named
+> `VITE_OPENAI_API_KEY` would be served to every visitor and extractable from the
+> JavaScript in seconds. An earlier version of this project did exactly that.
+>
+> Practical consequence: **the server must be running** for generation to work,
+> in development too — `npm run dev:all` starts the front end and the server
+> together.
 
 ---
 
@@ -65,11 +69,17 @@ database layer.
 Requires Node 18+ and a Supabase project.
 
 ```bash
-cp .env.example .env     # fill in Supabase + OpenAI values
+cp .env.example .env     # Supabase (VITE_*) + OPENAI_API_KEY (server-side)
 npm install
+npm run dev:all          # front-end :5173 + server :4000 + orchestrator
+```
+
+Or piece by piece:
+
+```bash
 npm run dev              # front-end on :5173
-npm run orchestrator     # deployment orchestrator (optional)
-npm run dev:all          # both at once
+npm run server           # :4000 — carries the OpenAI relay, required to generate
+npm run orchestrator     # :4001 — deployment orchestrator (optional)
 ```
 
 With Docker:

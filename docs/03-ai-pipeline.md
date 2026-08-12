@@ -66,23 +66,44 @@ Si l'IA retourne un variant inexistant (ex: `"cards-hover"` pour un bloc Hero), 
 
 ### Appel OpenAI
 
+Le client ne parle jamais directement à OpenAI : il poste sur le relais du
+serveur, seul détenteur de la clé.
+
 ```typescript
-const callOpenAI = async (messages: any[]): Promise<string> => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+const AI_ENDPOINT = `${import.meta.env.VITE_SITEGEN_URL || 'http://localhost:4000'}/ai/chat`;
+
+const callOpenAI = async (messages: OpenAIMessage[]): Promise<string> => {
+  const response = await fetch(AI_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages }),
+  });
+  // ...
+  const data = await response.json();
+  return data.content;
+};
+```
+
+Côté serveur (`server/index.js`) :
+
+```javascript
+app.post('/ai/chat', async (req, res) => {
+  const apiKey = process.env.OPENAI_API_KEY;   // jamais préfixée VITE_
+  const upstream = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${getApiKey()}`,
+      Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: import.meta.env.VITE_OPENAI_MODEL || 'gpt-4o-mini',
-      messages,
+      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+      messages: req.body.messages,
       temperature: 0.7,
       response_format: { type: 'json_object' },  // Garantit du JSON valide
     }),
   });
   // ...
-};
+});
 ```
 
 `response_format: json_object` est essentiel : il force OpenAI à toujours retourner du JSON parsable, évitant les réponses en texte libre.
@@ -237,4 +258,17 @@ const normalizeServices = (config: GeneratedSiteConfig): GeneratedSiteConfig => 
 
 ## Gestion de la clé API
 
-La clé OpenAI (`VITE_OPENAI_API_KEY`) est actuellement utilisée **côté client**. C'est suffisant en développement mais doit être proxyfié via un serveur Express en production pour ne pas exposer la clé dans le bundle.
+La clé vit dans `OPENAI_API_KEY`, lue par `server/index.js` — **sans préfixe
+`VITE_`, et c'est délibéré**. Vite inline toute variable préfixée `VITE_` dans
+le bundle client au moment du build : une clé nommée `VITE_OPENAI_API_KEY`
+serait servie en clair à chaque visiteur du site déployé et extractible du
+JavaScript en quelques secondes.
+
+Le navigateur poste donc sur `POST {VITE_SITEGEN_URL}/ai/chat`, et le serveur
+relaie vers OpenAI. Conséquence pratique : **le serveur doit tourner** pour que
+la génération fonctionne, y compris en développement (`npm run server`, ou
+`npm run dev:all` qui lance front et serveur ensemble).
+
+Si la clé est absente de l'environnement du serveur, la route répond `503
+openai_not_configured` et le client affiche un message explicite plutôt que
+d'échouer silencieusement.

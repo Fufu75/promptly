@@ -30,13 +30,15 @@ Framework      : Vite
 ```
 VITE_SUPABASE_URL
 VITE_SUPABASE_PUBLISHABLE_KEY
-VITE_OPENAI_API_KEY
-VITE_OPENAI_MODEL
 VITE_ORCHESTRATOR_URL    (URL publique du VPS orchestrateur)
-VITE_SITEGEN_URL         (optionnel, backend génération ZIP)
+VITE_SITEGEN_URL         (URL publique du serveur : porte le relais IA)
 ```
 
-> Les variables préfixées `VITE_` sont embarquées dans le bundle JavaScript au build. Ne jamais y mettre de clés secrètes en production (service role key Supabase, etc.).
+> Les variables préfixées `VITE_` sont embarquées dans le bundle JavaScript au build. Ne jamais y mettre de clés secrètes (clé OpenAI, service role key Supabase).
+
+**La clé OpenAI ne se configure pas ici.** `OPENAI_API_KEY` et `OPENAI_MODEL`
+se déclarent dans l'environnement du **serveur** (`server/index.js`), pas dans
+Vercel côté frontend. Le navigateur appelle `{VITE_SITEGEN_URL}/ai/chat`.
 
 ---
 
@@ -120,7 +122,8 @@ Le ZIP contient le site compilé, prêt à être hébergé sur n'importe quelle 
 
 | Composant | Où configurer | Variables clés |
 |-----------|---------------|----------------|
-| Plateforme frontend | Vercel Dashboard | `VITE_SUPABASE_*`, `VITE_OPENAI_*` |
+| Plateforme frontend | Vercel Dashboard | `VITE_SUPABASE_*`, `VITE_SITEGEN_URL` |
+| Relais IA | Environnement du serveur | `OPENAI_API_KEY`, `OPENAI_MODEL` |
 | Orchestrateur backend | VPS `.env` | `VPS_IP`, `DEPLOY_TOKEN`, `ENABLE_DOCKER` |
 | Supabase | Dashboard Supabase | RLS, Storage buckets, Edge Functions |
 | OpenAI | Platform OpenAI | Clé API, limites de quota |

@@ -68,6 +68,69 @@ app.get('/health', (_, res) => {
   res.json({ ok: true });
 });
 
+// ─── Relais OpenAI ────────────────────────────────────────────────────────────
+// La clé vit ici et nulle part ailleurs. Le navigateur poste ses messages sur
+// cette route, jamais sur api.openai.com : une clé lue côté client via une
+// variable VITE_ serait inlinée dans le bundle par Vite et servie à chaque
+// visiteur.
+const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+
+app.post('/ai/chat', async (req, res) => {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return res.status(503).json({
+      error: 'openai_not_configured',
+      details: 'OPENAI_API_KEY absente de l’environnement du serveur.',
+    });
+  }
+
+  const { messages } = req.body || {};
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return res.status(400).json({
+      error: 'invalid_request',
+      details: 'Le corps de la requête doit contenir un tableau "messages" non vide.',
+    });
+  }
+
+  try {
+    const upstream = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: OPENAI_MODEL,
+        messages,
+        temperature: 0.7,
+        response_format: { type: 'json_object' },
+      }),
+    });
+
+    const data = await upstream.json().catch(() => ({}));
+
+    if (!upstream.ok) {
+      // On relaie le statut et le message d'erreur, jamais la clé ni les
+      // en-têtes de la requête sortante.
+      console.error('openai error', upstream.status, data?.error?.message);
+      return res.status(upstream.status).json({
+        error: 'openai_error',
+        details: data?.error?.message || upstream.statusText,
+      });
+    }
+
+    const content = data.choices?.[0]?.message?.content;
+    if (!content) {
+      return res.status(502).json({ error: 'openai_empty_response' });
+    }
+
+    res.json({ content });
+  } catch (e) {
+    console.error('ai/chat error', e);
+    res.status(500).json({ error: 'ai_proxy_failed', details: String(e) });
+  }
+});
+
 app.post('/generate-site', async (req, res) => {
   try {
     const { config, siteName = 'site-generé' } = req.body || {};

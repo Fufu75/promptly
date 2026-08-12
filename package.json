@@ -10,10 +10,10 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "node server/index.js",
+    "server": "node --env-file=.env server/index.js",
     "clean": "rm -rf node_modules/.vite dist",
     "orchestrator": "node --env-file=.env server/orchestrator.js",
-    "dev:all": "concurrently \"npm run dev\" \"npm run orchestrator\"",
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\" \"npm run orchestrator\"",
     "deploy:client": "bash scripts/deploy-client.sh"
   },
   "dependencies": {

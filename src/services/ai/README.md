@@ -118,9 +118,18 @@ Les bibliothèques sont dans `src/config/libraries/`.
 
 ## Variables d'environnement
 
+Côté **serveur** uniquement — jamais de préfixe `VITE_`, qui inlinerait la clé
+dans le bundle client :
+
 ```env
-VITE_OPENAI_API_KEY=sk-...
-VITE_OPENAI_MODEL=gpt-4o-mini   # optionnel, défaut : gpt-4o-mini
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini   # optionnel, défaut : gpt-4o-mini
+```
+
+Côté client, seule l'URL du serveur est nécessaire :
+
+```env
+VITE_SITEGEN_URL=http://localhost:4000
 ```
 
 ---

@@ -37,38 +37,38 @@ const fixBlockVariants = (blocks: Array<{ type: string; variant: string; props: 
 
 export type { AIGeneratedConfigs, AIResponse } from './types';
 
-// ─── Appel OpenAI ─────────────────────────────────────────────────────────────
+// ─── Appel OpenAI, via le relais serveur ──────────────────────────────────────
+// Le navigateur ne détient aucune clé : il poste sur /ai/chat, et c'est le
+// serveur qui porte OPENAI_API_KEY. Une clé lue ici via une variable VITE_
+// serait inlinée dans le bundle par Vite, donc servie à chaque visiteur.
 
-const getApiKey = () => {
-  const key = import.meta.env.VITE_OPENAI_API_KEY;
-  if (!key) throw new Error('VITE_OPENAI_API_KEY manquante dans .env');
-  return key;
-};
+const AI_ENDPOINT = `${import.meta.env.VITE_SITEGEN_URL || 'http://localhost:4000'}/ai/chat`;
 
 const callOpenAI = async (messages: OpenAIMessage[]): Promise<string> => {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getApiKey()}`,
-    },
-    body: JSON.stringify({
-      model: import.meta.env.VITE_OPENAI_MODEL || 'gpt-4o-mini',
-      messages,
-      temperature: 0.7,
-      response_format: { type: 'json_object' },
-    }),
-  });
+  let response: Response;
+  try {
+    response = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages }),
+    });
+  } catch {
+    throw new Error(
+      `Serveur IA injoignable sur ${AI_ENDPOINT}. Démarre-le avec \`npm run server\`.`
+    );
+  }
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(`OpenAI ${response.status}: ${err?.error?.message || response.statusText}`);
+    if (err?.error === 'openai_not_configured') {
+      throw new Error("OPENAI_API_KEY absente de l'environnement du serveur.");
+    }
+    throw new Error(`IA ${response.status}: ${err?.details || response.statusText}`);
   }
 
   const data = await response.json();
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error('Réponse OpenAI vide');
-  return content;
+  if (!data?.content) throw new Error('Réponse IA vide');
+  return data.content as string;
 };
 
 // ─── Génération initiale ──────────────────────────────────────────────────────

@@ -27,7 +27,7 @@ Promptly est une plateforme SaaS permettant de générer des sites de réservati
 ```bash
 git clone <repo>
 cp .env.example .env
-# Remplir VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY, VITE_OPENAI_API_KEY
+# Remplir VITE_SUPABASE_*, puis OPENAI_API_KEY (côté serveur, sans préfixe VITE_)
 npm install
-npm run dev
+npm run dev:all   # front + serveur : le relais IA est requis pour générer
 ```
