@@ -1,6 +1,6 @@
-# Documentation Technique — BookWise
+# Documentation Technique — Promptly
 
-BookWise est une plateforme SaaS permettant de générer des sites de réservation complets via une interface conversationnelle IA. L'utilisateur décrit son activité, l'IA sélectionne et configure les composants visuels, et le résultat est prévisualisable et déployable en quelques minutes.
+Promptly est une plateforme SaaS permettant de générer des sites de réservation complets via une interface conversationnelle IA. L'utilisateur décrit son activité, l'IA sélectionne et configure les composants visuels, et le résultat est prévisualisable et déployable en quelques minutes.
 
 ## Sommaire
 

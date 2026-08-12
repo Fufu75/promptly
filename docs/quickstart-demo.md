@@ -1,4 +1,4 @@
-# 🚀 QUICKSTART - Demo Soutenance BookWise Generator v2.0
+# 🚀 QUICKSTART - Demo Soutenance Promptly Generator v2.0
 
 Ce guide vous permet de lancer rapidement le projet pour la démonstration de lundi.
 

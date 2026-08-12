@@ -1,4 +1,4 @@
-# 🗄️ Configuration Supabase - BookWise Generator v2.0
+# 🗄️ Configuration Supabase - Promptly Generator v2.0
 
 Ce guide vous aide à configurer Supabase pour la gestion multi-projets.
 
@@ -80,7 +80,7 @@ Si le bucket n'existe pas, créez-le manuellement :
 1. Ouvrir http://localhost:4173 dans votre navigateur
 2. Aller sur `/auth`
 3. Créer un compte avec :
-   - Email : test@bookwise.dev
+   - Email : test@promptly.dev
    - Mot de passe : TestPassword123!
    - Nom : Test User
 

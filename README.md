@@ -99,8 +99,6 @@ Setup guides: [Supabase](./docs/supabase-setup.md) · [environment](./docs/env-c
 ## Known limitations
 
 - The OpenAI key is exposed client-side — see the security notice above.
-- The documentation in `docs/` still refers to the project as *BookWise*, its
-  earlier name. Renaming is not finished.
 - No automated test suite; [`docs/test-scenarios.md`](./docs/test-scenarios.md)
   lists manual scenarios only.
 

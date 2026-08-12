@@ -2,7 +2,7 @@
 set -e
 
 # ============================================================================
-# BookWise - Script de déploiement client
+# Promptly - Script de déploiement client
 # ============================================================================
 # Usage: ./scripts/deploy-client.sh <CLIENT_ID> <PORT> <CONFIG_JSON>
 # ============================================================================
@@ -17,7 +17,7 @@ if [ -z "$CLIENT_ID" ] || [ -z "$PORT" ] || [ -z "$CONFIG_JSON" ]; then
 fi
 
 # Configuration
-BASE_DIR="${BOOKWISE_BASE_DIR:-/opt/bookwise-saas}"
+BASE_DIR="${PROMPTLY_BASE_DIR:-/opt/promptly-saas}"
 CLIENT_DIR="$BASE_DIR/clients/$CLIENT_ID"
 TEMPLATE_DIR="$BASE_DIR/templates/barber"
 VPS_IP="${VPS_IP:-localhost}"
@@ -54,7 +54,7 @@ echo "🐳 Génération du docker-compose.yml..."
 cat > "$CLIENT_DIR/docker-compose.yml" <<EOF
 services:
   web:
-    image: bookwise-template:latest
+    image: promptly-template:latest
     container_name: client-$CLIENT_ID
     restart: unless-stopped
     volumes:

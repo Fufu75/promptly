@@ -1,4 +1,4 @@
-# 🧪 Plan de Tests Complet - BookWise
+# 🧪 Plan de Tests Complet - Promptly
 
 ## 📋 Checklist de Tests
 

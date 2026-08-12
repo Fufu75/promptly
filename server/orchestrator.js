@@ -234,7 +234,7 @@ app.post('/deploy', async (req, res) => {
 // ============================================================================
 
 app.listen(PORT, () => {
-  console.log(`BookWise Orchestrator running on http://localhost:${PORT}`);
+  console.log(`Promptly Orchestrator running on http://localhost:${PORT}`);
   console.log(`Vercel token: ${VERCEL_TOKEN ? 'configured' : 'MISSING'}`);
   console.log(`Vercel team: ${VERCEL_TEAM_ID || 'personal account'}`);
   console.log(`Template dir: ${TEMPLATE_DIR}`);

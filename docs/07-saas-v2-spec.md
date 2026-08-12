@@ -1,4 +1,4 @@
-# SPÉCIFICATION TECHNIQUE - BookWise Generator v2.0
+# SPÉCIFICATION TECHNIQUE - Promptly Generator v2.0
 ## Architecture SaaS Multi-tenant avec Déploiement Automatisé par IA
 
 **Date**: 21 Janvier 2026  
@@ -96,7 +96,7 @@ User → Frontend → Supabase → Edge Function → Backend VPS → Docker → 
 
 **Filesystem Layout**
 ```
-/opt/bookwise-saas/
+/opt/promptly-saas/
 ├── templates/
 │   └── barber/          # Template de base (lecture seule)
 ├── clients/
@@ -128,7 +128,7 @@ CLIENT_ID=$1
 CONFIG_JSON=$2
 PORT=$3
 
-BASE_DIR="/opt/bookwise-saas"
+BASE_DIR="/opt/promptly-saas"
 CLIENT_DIR="$BASE_DIR/clients/$CLIENT_ID"
 TEMPLATE_DIR="$BASE_DIR/templates/barber"
 
@@ -146,7 +146,7 @@ echo "$CONFIG_JSON" > "$CLIENT_DIR/volumes/config/config.json"
 cat > "$CLIENT_DIR/docker-compose.yml" <<EOF
 services:
   web:
-    image: bookwise-template:latest
+    image: promptly-template:latest
     container_name: client-$CLIENT_ID
     restart: unless-stopped
     volumes:
@@ -402,7 +402,7 @@ app.post('/deploy-client', async (req, res) => {
     const port = await findFreePort(3001, 4000);
 
     // 2. Créer le dossier client
-    const clientDir = `/opt/bookwise-saas/clients/${clientId}`;
+    const clientDir = `/opt/promptly-saas/clients/${clientId}`;
     await fs.mkdir(clientDir, { recursive: true });
     await fs.mkdir(`${clientDir}/volumes/config`, { recursive: true });
 
@@ -417,7 +417,7 @@ app.post('/deploy-client', async (req, res) => {
     const composeYml = `
 services:
   web:
-    image: bookwise-template:latest
+    image: promptly-template:latest
     container_name: client-${clientId}
     restart: unless-stopped
     volumes:
@@ -478,7 +478,7 @@ async function findFreePort(start, end) {
 ```javascript
 app.post('/update-client-config', async (req, res) => {
   const { clientId, config } = req.body;
-  const configPath = `/opt/bookwise-saas/clients/${clientId}/volumes/config/config.json`;
+  const configPath = `/opt/promptly-saas/clients/${clientId}/volumes/config/config.json`;
 
   try {
     await fs.writeFile(configPath, JSON.stringify(config, null, 2), 'utf-8');
@@ -527,7 +527,7 @@ export async function modifyCodeWithAI(
   maxIterations = 3
 ): Promise<ModificationResult> {
   const { clientId, userPrompt, targetFile } = request;
-  const clientDir = `/opt/bookwise-saas/clients/${clientId}`;
+  const clientDir = `/opt/promptly-saas/clients/${clientId}`;
   let iteration = 0;
   const changes: { filePath: string; content: string }[] = [];
 
@@ -905,9 +905,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build template image
-        run: docker build -t bookwise-template:latest .
+        run: docker build -t promptly-template:latest .
       - name: Push to Docker Hub
-        run: docker push bookwise-template:latest
+        run: docker push promptly-template:latest
 ```
 
 ---

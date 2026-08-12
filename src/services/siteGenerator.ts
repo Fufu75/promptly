@@ -18,11 +18,11 @@ export function generateConfigFile(config: Config): string {
 export function generateReadme(config: Config): string {
   return `# ${config.brandName}
 
-Site de réservation généré automatiquement avec BookWise Generator.
+Site de réservation généré automatiquement avec Promptly Generator.
 
 ## Configuration
 
-Ce site utilise le système de réservation BookWise avec la configuration suivante :
+Ce site utilise le système de réservation Promptly avec la configuration suivante :
 
 - **Nom** : ${config.brandName}
 - **Secteur** : ${config.businessSector}
@@ -242,7 +242,7 @@ Ce ZIP contient les fichiers essentiels personnalisés pour votre site "${config
 
 1. Créez un nouveau dossier pour votre projet
 2. Extrayez ce ZIP dans ce dossier
-3. Copiez les fichiers suivants depuis le template BookWise original :
+3. Copiez les fichiers suivants depuis le template Promptly original :
    
    FICHIERS DE CONFIGURATION :
    - tsconfig.json, tsconfig.app.json, tsconfig.node.json

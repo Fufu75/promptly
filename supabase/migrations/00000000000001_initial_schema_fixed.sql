@@ -1,5 +1,5 @@
 -- ============================================================================
--- BOOKWISE - INITIAL SCHEMA (FIXED ORDER)
+-- PROMPTLY - INITIAL SCHEMA (FIXED ORDER)
 -- ============================================================================
 -- Description: Complete database schema for a booking/appointment system
 -- Use case: Salons de coiffure, terrains de padel, consultations, etc.

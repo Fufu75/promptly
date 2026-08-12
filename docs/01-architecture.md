@@ -1,8 +1,8 @@
-# Architecture Générale — BookWise
+# Architecture Générale — Promptly
 
 ## Vue d'ensemble
 
-BookWise est une plateforme SaaS multi-tenant permettant à n'importe quel professionnel de générer un site de réservation complet via une interface conversationnelle IA. L'utilisateur décrit son activité en répondant à 9 questions, l'IA sélectionne et configure automatiquement les composants visuels adaptés, et le résultat est prévisualisable et déployable en quelques minutes.
+Promptly est une plateforme SaaS multi-tenant permettant à n'importe quel professionnel de générer un site de réservation complet via une interface conversationnelle IA. L'utilisateur décrit son activité en répondant à 9 questions, l'IA sélectionne et configure automatiquement les composants visuels adaptés, et le résultat est prévisualisable et déployable en quelques minutes.
 
 ## Stack technique
 

@@ -81,10 +81,10 @@ export interface Config {
 }
 
 // Config chargée depuis config.json injecté par l'orchestrateur au moment du build.
-// localStorage preview_config est utilisé uniquement en mode preview BookWise.
+// localStorage preview_config est utilisé uniquement en mode preview Promptly.
 export const useConfig = () => {
   const [configuration] = useState<Config>(() => {
-    // Mode preview BookWise
+    // Mode preview Promptly
     const isPreviewMode = localStorage.getItem('is_preview_mode') === 'true';
     if (isPreviewMode) {
       try {

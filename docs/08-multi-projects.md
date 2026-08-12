@@ -1,4 +1,4 @@
-# ✅ Implémentation Gestion Multi-Projets - BookWise Generator
+# ✅ Implémentation Gestion Multi-Projets - Promptly Generator
 
 **Date** : 29 Janvier 2026  
 **Status** : Implémenté, à tester

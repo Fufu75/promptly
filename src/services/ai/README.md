@@ -1,4 +1,4 @@
-# Services IA — BookWise Generator
+# Services IA — Promptly Generator
 
 ## Vue d'ensemble
 

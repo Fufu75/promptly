@@ -1,4 +1,4 @@
-# Migrations BookWise
+# Migrations Promptly
 
 ## 📋 Structure
 

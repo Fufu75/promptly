@@ -1,4 +1,4 @@
-# 📝 CHANGELOG - BookWise Generator v1.0 → v2.0
+# 📝 CHANGELOG - Promptly Generator v1.0 → v2.0
 
 **Date** : 21 Janvier 2026  
 **Version** : 2.0.0  
@@ -86,7 +86,7 @@ supabase/functions/deploy-site/index.ts
 
 ### .gitignore (si nécessaire)
 ```diff
-+ /opt/bookwise-saas/clients/*
++ /opt/promptly-saas/clients/*
 + *.log
 ```
 
@@ -227,7 +227,7 @@ services:
       - ENABLE_NGINX
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/bookwise-saas:/opt/bookwise-saas
+      - /opt/promptly-saas:/opt/promptly-saas
 ```
 
 #### Clients dynamiques
@@ -235,7 +235,7 @@ services:
 # Généré dynamiquement par l'orchestrator
 services:
   web:
-    image: bookwise-template:latest
+    image: promptly-template:latest
     container_name: client-{UUID}
     ports:
       - "{PORT}:5173"

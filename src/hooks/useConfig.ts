@@ -81,7 +81,7 @@ export interface Config {
 
 export const useConfig = () => {
   const [configuration, setConfiguration] = useState<Config>(() => {
-    // Mode preview BookWise (priorité 2)
+    // Mode preview Promptly (priorité 2)
     const isPreviewMode = localStorage.getItem('is_preview_mode') === 'true';
     if (isPreviewMode) {
       try {

@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-L'interface créateur est le panneau central de BookWise. Elle orchestre le questionnaire initial, le chat IA, l'édition manuelle de la configuration, l'upload d'images, la prévisualisation et la sauvegarde. La logique complète est encapsulée dans le hook `useSiteCreator`, rendant `SiteCreator.tsx` un orchestrateur pur de ~220 lignes.
+L'interface créateur est le panneau central de Promptly. Elle orchestre le questionnaire initial, le chat IA, l'édition manuelle de la configuration, l'upload d'images, la prévisualisation et la sauvegarde. La logique complète est encapsulée dans le hook `useSiteCreator`, rendant `SiteCreator.tsx` un orchestrateur pur de ~220 lignes.
 
 ## Fichiers concernés
 

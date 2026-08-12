@@ -4,7 +4,7 @@
 
 ## Vue d'ensemble
 
-BookWise distingue deux niveaux de déploiement :
+Promptly distingue deux niveaux de déploiement :
 
 1. **La plateforme elle-même** (ce dépôt) — déployée sur Vercel
 2. **Les sites clients générés** — déployés via un orchestrateur backend (Docker + Nginx sur VPS)
@@ -15,7 +15,7 @@ BookWise distingue deux niveaux de déploiement :
 
 ### Frontend React
 
-La plateforme BookWise est une SPA React compilée par Vite. Le déploiement Vercel s'effectue depuis le dépôt GitHub.
+La plateforme Promptly est une SPA React compilée par Vite. Le déploiement Vercel s'effectue depuis le dépôt GitHub.
 
 **Configuration requise dans Vercel :**
 
@@ -47,7 +47,7 @@ VITE_SITEGEN_URL         (optionnel, backend génération ZIP)
 Chaque site de réservation généré est déployé comme un **conteneur Docker indépendant** sur un VPS, exposé via Nginx avec un sous-domaine dédié.
 
 ```
-[BookWise Platform] → [Orchestrateur API :4001]
+[Promptly Platform] → [Orchestrateur API :4001]
                               │
                     ┌─────────┼─────────┐
                     ▼         ▼         ▼
@@ -56,14 +56,14 @@ Chaque site de réservation généré est déployé comme un **conteneur Docker 
                     │
                   Nginx
                     │
-           client-a.bookwise.fr
+           client-a.promptly.fr
 ```
 
 ### Variables d'environnement (VPS)
 
 ```bash
 VPS_IP=<ip_publique_vps>
-BOOKWISE_BASE_DIR=/opt/bookwise-saas
+PROMPTLY_BASE_DIR=/opt/promptly-saas
 ENABLE_DOCKER=true
 ENABLE_NGINX=true
 DEPLOY_TOKEN=<token_secret>     # Sécurise les appels inter-services

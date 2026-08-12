@@ -1,5 +1,5 @@
 -- ============================================================================
--- BOOKWISE GENERATOR - SCHÉMA INITIAL (SOURCE DE VÉRITÉ)
+-- PROMPTLY GENERATOR - SCHÉMA INITIAL (SOURCE DE VÉRITÉ)
 -- ============================================================================
 -- Version : 3.0.0 — SaaS Multi-tenant
 --
@@ -207,7 +207,7 @@ CREATE TABLE public.clients (
   last_activity_at  TIMESTAMPTZ
 );
 
-COMMENT ON TABLE  public.clients IS 'Sites clients générés et déployés par BookWise Generator.';
+COMMENT ON TABLE  public.clients IS 'Sites clients générés et déployés par Promptly Generator.';
 COMMENT ON COLUMN public.clients.config_url IS 'Path vers config.json dans Supabase Storage ou JSON stringifié.';
 
 -- FK circulaire : profiles.client_id → clients

@@ -14,8 +14,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.back
-    image: bookwise-back-image
-    container_name: bookwise-back
+    image: promptly-back-image
+    container_name: promptly-back
     restart: unless-stopped
     environment:
       - PORT=4000
@@ -29,8 +29,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.front
-    image: bookwise-front-image
-    container_name: bookwise-front
+    image: promptly-front-image
+    container_name: promptly-front
     restart: unless-stopped
     environment:
       - VITE_OLLAMA_URL=http://localhost:11434

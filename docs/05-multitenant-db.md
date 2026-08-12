@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-BookWise utilise Supabase (PostgreSQL) avec une architecture **multi-tenant par ligne** : toutes les données clients coexistent dans les mêmes tables, isolées par des politiques RLS (Row Level Security) basées sur `user_id` ou `client_id`. Un utilisateur de la plateforme ne peut accéder qu'à ses propres projets.
+Promptly utilise Supabase (PostgreSQL) avec une architecture **multi-tenant par ligne** : toutes les données clients coexistent dans les mêmes tables, isolées par des politiques RLS (Row Level Security) basées sur `user_id` ou `client_id`. Un utilisateur de la plateforme ne peut accéder qu'à ses propres projets.
 
 ## Fichiers concernés
 

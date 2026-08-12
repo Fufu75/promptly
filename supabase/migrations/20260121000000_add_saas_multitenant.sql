@@ -1,5 +1,5 @@
 -- ============================================================================
--- BOOKWISE GENERATOR v2.0 - SAAS MULTI-TENANT ARCHITECTURE
+-- PROMPTLY GENERATOR v2.0 - SAAS MULTI-TENANT ARCHITECTURE
 -- ============================================================================
 -- Description: Extension du schéma pour supporter le déploiement multi-tenant
 -- Ajoute la gestion des clients (sites générés) et leurs admins
@@ -51,7 +51,7 @@ CREATE TABLE public.clients (
   last_activity_at TIMESTAMPTZ
 );
 
-COMMENT ON TABLE public.clients IS 'Sites clients générés et déployés par BookWise Generator';
+COMMENT ON TABLE public.clients IS 'Sites clients générés et déployés par Promptly Generator';
 COMMENT ON COLUMN public.clients.status IS 'pending: en attente, deploying: déploiement en cours, deployed: actif, failed: erreur, suspended: désactivé';
 COMMENT ON COLUMN public.clients.config_url IS 'Path vers le fichier config.json dans Supabase Storage ou JSON stringifié';
 
