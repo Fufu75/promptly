@@ -1,73 +1,109 @@
-# Welcome to your Lovable project
+# Promptly
 
-## Project info
+A SaaS platform that generates complete booking websites from a conversation.
+The user describes their business, an LLM picks and configures the page blocks,
+and the result is previewable and deployable in minutes — one isolated container
+per client.
 
-**URL**: https://lovable.dev/projects/383c051e-2abe-4f78-9c05-6d954a7b49c7
+**Live:** https://promptly-cyan.vercel.app
 
-## How can I edit this code?
+**Stack:** React · Vite · TypeScript · shadcn/ui · Tailwind · Supabase · OpenAI · Docker
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+> ### ⚠️ Security notice — read before deploying
+>
+> This project reads the OpenAI key through `VITE_OPENAI_API_KEY`. **Vite inlines
+> every `VITE_`-prefixed variable into the client bundle at build time**, so that
+> key is served to every visitor and can be extracted from the JavaScript.
+>
+> Do not deploy this as-is with a real key. The OpenAI call belongs in
+> `server/`, behind an endpoint the browser calls — never in the client. This is
+> a known flaw in the current architecture, kept visible here rather than
+> quietly papered over.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/383c051e-2abe-4f78-9c05-6d954a7b49c7) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## How it works
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+9-question onboarding
+        │
+        ▼
+  4-layer system prompt  ──▶  1 OpenAI call  ──▶  4 block configs (JSON)
+        │
+        ▼
+  PageRenderer  ──▶  live preview  ──▶  Supabase (source of truth)
+                                              │
+                                              ▼
+                                    deploy trigger ──▶ Docker container
+                                                       per client + Nginx
 ```
 
-**Edit a file directly in GitHub**
+The generated site is **data, not code**: the LLM emits a JSON configuration
+that selects and parameterises pre-built React blocks. That keeps generation
+deterministic to render, cheap to store, and editable after the fact — a chat
+message mutates the config, not a codebase.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## What's in it
 
-**Use GitHub Codespaces**
+| | |
+|---|---|
+| React blocks | 37 (26 homepage · 3 auth · 8 booking) |
+| Block types | 12, each with 2–3 variants |
+| Onboarding | 9 questions |
+| System prompt | 4 layers, ~150 lines |
+| Supabase migrations | 20 |
+| OpenAI calls per site | 1 |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Multi-tenancy is enforced in Postgres with Row Level Security, not in
+application code — every client's configs and uploads are isolated at the
+database layer.
 
-## What technologies are used for this project?
+## Running it
 
-This project is built with:
+Requires Node 18+ and a Supabase project.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```bash
+cp .env.example .env     # fill in Supabase + OpenAI values
+npm install
+npm run dev              # front-end on :5173
+npm run orchestrator     # deployment orchestrator (optional)
+npm run dev:all          # both at once
+```
 
-## How can I deploy this project?
+With Docker:
 
-Simply open [Lovable](https://lovable.dev/projects/383c051e-2abe-4f78-9c05-6d954a7b49c7) and click on Share -> Publish.
+```bash
+docker compose up
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Documentation
 
-Yes, you can!
+Detailed technical docs live in [`docs/`](./docs):
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+| # | Document |
+|---|---|
+| 01 | [Architecture](./docs/01-architecture.md) — stack, routing, creation flow, persistence |
+| 02 | [Template engine](./docs/02-template-engine.md) — blocks, JSON libraries, PageRenderer |
+| 03 | [AI pipeline](./docs/03-ai-pipeline.md) — questionnaire, system prompt, response types |
+| 04 | [Creator interface](./docs/04-creator-interface.md) — SiteCreator, ChatPanel, ConfigPanel |
+| 05 | [Multi-tenant database](./docs/05-multitenant-db.md) — Supabase, RLS, storage |
+| 06 | [Deployment](./docs/06-deployment.md) — Vercel for the platform, Docker/Nginx per client |
+| 07 | [SaaS v2 specification](./docs/07-saas-v2-spec.md) |
+| 08 | [Multi-project support](./docs/08-multi-projects.md) |
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Setup guides: [Supabase](./docs/supabase-setup.md) · [environment](./docs/env-config.md) ·
+[Ollama (local models)](./docs/ollama-setup.md) · [deployment notes](./docs/deploy-notes.md)
+
+## Known limitations
+
+- The OpenAI key is exposed client-side — see the security notice above.
+- The documentation in `docs/` still refers to the project as *BookWise*, its
+  earlier name. Renaming is not finished.
+- No automated test suite; [`docs/test-scenarios.md`](./docs/test-scenarios.md)
+  lists manual scenarios only.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
