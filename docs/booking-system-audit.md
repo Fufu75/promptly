@@ -34,31 +34,31 @@ Réservation créée dans `bookings`
 
 ### Ce qui disparaît
 
-- ❌ Table `slots` (plus nécessaire)
-- ❌ CreateSlotDialog (plus de création manuelle)
-- ❌ SlotManagementDialog (plus de gestion slots)
-- ❌ useAdminSlots hook (plus de CRUD slots)
+- Table `slots` (plus nécessaire)
+- CreateSlotDialog (plus de création manuelle)
+- SlotManagementDialog (plus de gestion slots)
+- useAdminSlots hook (plus de CRUD slots)
 
 ### Ce qui reste
 
-- ✅ `bookings` table
-- ✅ ServiceSelector
-- ✅ AvailableTimePicker (modifié pour lire openingHours)
-- ✅ BookingList
-- ✅ Admin voit les réservations
-- ✅ useBookings, useAdminBookings
+- `bookings` table
+- ServiceSelector
+- AvailableTimePicker (modifié pour lire openingHours)
+- BookingList
+- Admin voit les réservations
+- useBookings, useAdminBookings
 
 ### Fichiers modifiés (v2 implémentée)
 
 | Fichier | Status | Changement |
 |---------|--------|------------|
-| `availabilityHelpers.ts` | ✅ Fait | Génère depuis openingHours |
-| `useSlots.ts` | ✅ Fait | Fetch uniquement bookings |
-| `useBookings.ts` | ✅ Fait | Simplifié (plus de slot_id) |
-| `ClientBookings.tsx` | ✅ Fait | Nouveau flow sans slots |
-| `AvailableTimePicker.tsx` | ✅ Fait | Reçoit openingHours |
-| `types/booking.ts` | ✅ Fait | slot_id optionnel |
-| `supabase/types.ts` | ✅ Fait | Colonnes ajoutées |
+| `availabilityHelpers.ts` | Fait | Génère depuis openingHours |
+| `useSlots.ts` | Fait | Fetch uniquement bookings |
+| `useBookings.ts` | Fait | Simplifié (plus de slot_id) |
+| `ClientBookings.tsx` | Fait | Nouveau flow sans slots |
+| `AvailableTimePicker.tsx` | Fait | Reçoit openingHours |
+| `types/booking.ts` | Fait | slot_id optionnel |
+| `supabase/types.ts` | Fait | Colonnes ajoutées |
 | `AdminDashboard.tsx` | ⏳ À adapter | Retirer création slots |
 
 ### Migration DB requise

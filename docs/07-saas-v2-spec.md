@@ -1,13 +1,13 @@
 # SPÉCIFICATION TECHNIQUE - Promptly Generator v2.0
 ## Architecture SaaS Multi-tenant avec Déploiement Automatisé par IA
 
-**Date**: 21 Janvier 2026  
-**Version**: 2.0.0  
+**Date**: 21 Janvier 2026
+**Version**: 2.0.0
 **Statut**: En implémentation
 
 ---
 
-## 🎯 VISION & GAP ANALYSIS
+## VISION & GAP ANALYSIS
 
 ### État actuel (Prototype v1.0)
 - Générateur mono-utilisateur local
@@ -25,7 +25,7 @@
 
 ---
 
-## 📐 ARCHITECTURE GLOBALE
+## ARCHITECTURE GLOBALE
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -73,7 +73,7 @@
 
 ---
 
-## 🏗️ MODULE 1 : ARCHITECTURE DÉPLOIEMENT DYNAMIQUE
+## MODULE 1 : ARCHITECTURE DÉPLOIEMENT DYNAMIQUE
 
 ### 1.1 Workflow de Déploiement Client
 
@@ -170,7 +170,7 @@ cat > "/etc/nginx/sites-available/client-$CLIENT_ID.conf" <<EOF
 server {
     listen 80;
     server_name client-$CLIENT_ID.{VPS_IP}.nip.io;
-    
+
     location / {
         proxy_pass http://localhost:$PORT;
         proxy_set_header Host \$host;
@@ -232,7 +232,7 @@ export const useConfig = () => {
 
 ---
 
-## 🗄️ MODULE 2 : SUPABASE SOURCE OF TRUTH
+## MODULE 2 : SUPABASE SOURCE OF TRUTH
 
 ### 2.1 Schema Base de Données
 
@@ -292,7 +292,7 @@ VALUES ('client-configs', 'client-configs', false);
 CREATE POLICY "Users can upload their client configs"
   ON storage.objects FOR INSERT
   WITH CHECK (
-    bucket_id = 'client-configs' 
+    bucket_id = 'client-configs'
     AND auth.uid()::text = (storage.foldername(name))[1]
   );
 ```
@@ -312,9 +312,9 @@ serve(async (req) => {
   // Appeler le backend VPS pour déclencher déploiement
   const response = await fetch('http://{VPS_IP}:4000/deploy-client', {
     method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json', 
-      'X-Deploy-Token': Deno.env.get('DEPLOY_TOKEN') 
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Deploy-Token': Deno.env.get('DEPLOY_TOKEN')
     },
     body: JSON.stringify({ clientId, config }),
   });
@@ -322,7 +322,7 @@ serve(async (req) => {
   if (!response.ok) {
     // Mettre à jour status = 'failed'
     const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!, 
+      Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_KEY')!
     );
     await supabase
@@ -336,15 +336,15 @@ serve(async (req) => {
 
   // Mettre à jour status = 'deployed' + url
   const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!, 
+    Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_SERVICE_KEY')!
   );
   await supabase
     .from('clients')
-    .update({ 
-      status: 'deployed', 
-      deployment_url: url, 
-      container_port: port 
+    .update({
+      status: 'deployed',
+      deployment_url: url,
+      container_port: port
     })
     .eq('id', clientId);
 
@@ -361,7 +361,7 @@ BEGIN
   PERFORM net.http_post(
     url := 'https://{project-ref}.supabase.co/functions/v1/deploy-site',
     headers := jsonb_build_object(
-      'Authorization', 
+      'Authorization',
       'Bearer ' || current_setting('supabase.service_role_key')
     ),
     body := jsonb_build_object('record', row_to_json(NEW))
@@ -378,7 +378,7 @@ CREATE TRIGGER on_client_created
 
 ---
 
-## 🐳 MODULE 3 : BACKEND ORCHESTRATOR (Express + Docker API)
+## MODULE 3 : BACKEND ORCHESTRATOR (Express + Docker API)
 
 ### 3.1 API `/deploy-client`
 
@@ -446,8 +446,8 @@ server {
     }
 }`;
     await fs.writeFile(
-      `/etc/nginx/sites-available/client-${clientId}.conf`, 
-      nginxConf, 
+      `/etc/nginx/sites-available/client-${clientId}.conf`,
+      nginxConf,
       'utf-8'
     );
     execSync(`ln -sf /etc/nginx/sites-available/client-${clientId}.conf /etc/nginx/sites-enabled/`);
@@ -492,7 +492,7 @@ app.post('/update-client-config', async (req, res) => {
 
 ---
 
-## 🤖 MODULE 4 : AGENT IA AVANCÉ (Modification Code Source)
+## MODULE 4 : AGENT IA AVANCÉ (Modification Code Source)
 
 ### 4.1 Pipeline Self-Correction
 
@@ -550,7 +550,7 @@ export async function modifyCodeWithAI(
 
     // 4. Lancer lint
     const lintResult = execSync(
-      `cd ${clientDir} && npm run lint`, 
+      `cd ${clientDir} && npm run lint`,
       { encoding: 'utf-8', stdio: 'pipe' }
     );
     if (lintResult.includes('error')) {
@@ -564,7 +564,7 @@ Corrige le code pour éliminer ces erreurs. Réponds avec le JSON des fichiers c
 
     // 5. Lancer build
     const buildResult = execSync(
-      `cd ${clientDir} && npm run build`, 
+      `cd ${clientDir} && npm run build`,
       { encoding: 'utf-8', stdio: 'pipe' }
     );
     if (buildResult.includes('error')) {
@@ -642,7 +642,7 @@ app.post('/ai-modify-code', async (req, res) => {
 
 ---
 
-## 🔐 MODULE 5 : SÉCURITÉ & GESTION RÔLES
+## MODULE 5 : SÉCURITÉ & GESTION RÔLES
 
 ### 5.1 Hiérarchie des Rôles
 
@@ -688,22 +688,22 @@ app.post('/ai-modify-code', async (req, res) => {
 // server/supabase-proxy.js
 app.post('/ai-query-supabase', async (req, res) => {
   const { clientId, query } = req.body;
-  
+
   // Whitelist des opérations autorisées
   const ALLOWED_TABLES = ['slots', 'bookings', 'profiles'];
   const ALLOWED_OPERATIONS = ['select', 'insert', 'update']; // Pas de DELETE
-  
+
   // Parser query IA (ex: "SELECT * FROM slots WHERE ...")
   const { table, operation } = parseQuery(query);
-  
+
   if (!ALLOWED_TABLES.includes(table) || !ALLOWED_OPERATIONS.includes(operation)) {
     return res.status(403).json({ error: 'forbidden_operation' });
   }
-  
+
   // Exécuter via service_role_key (backend only)
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
   const { data, error } = await supabase.from(table).select('*'); // Simplifié
-  
+
   res.json({ data, error });
 });
 ```
@@ -718,7 +718,7 @@ Exemple requête : {"table": "slots", "operation": "select", "filters": {...}}
 
 ---
 
-## 🔄 MODULE 6 : INTÉGRATION COMPLÈTE
+## MODULE 6 : INTÉGRATION COMPLÈTE
 
 ### 6.1 Flux Frontend → Backend → VPS
 
@@ -788,7 +788,7 @@ await supabase.rpc('create_client_admin_profile', {
 
 ---
 
-## 🎓 MODULE 7 : ARGUMENTAIRE SOUTENANCE
+## MODULE 7 : ARGUMENTAIRE SOUTENANCE
 
 ### 7.1 Pourquoi LLM > NLP classique ?
 
@@ -822,7 +822,7 @@ await supabase.rpc('create_client_admin_profile', {
 │  - Rules manuelles (if/else)   │  - Self-correction   │
 │  - 1 modèle/secteur            │  - Cross-domain      │
 │  - Pas de génération           │  - JSON + TSX + CSS  │
-│  ❌ Maintenance lourde         │  ✅ Scalable         │
+│   Maintenance lourde         │   Scalable         │
 └────────────────────────────────────────────────────────┘
 ```
 
@@ -835,9 +835,9 @@ await supabase.rpc('create_client_admin_profile', {
 
 ---
 
-## 🚀 ROADMAP TECHNIQUE (12 semaines)
+## ROADMAP TECHNIQUE (12 semaines)
 
-### Sprint 1-2 : Fondations Supabase (Semaine 1-2) ✅ EN COURS
+### Sprint 1-2 : Fondations Supabase (Semaine 1-2)  EN COURS
 - [ ] Migrer schema `clients` + `client_admins`
 - [ ] Storage bucket `client-configs`
 - [ ] Edge Function `deploy-site` (trigger INSERT)
@@ -858,7 +858,7 @@ await supabase.rpc('create_client_admin_profile', {
 - [ ] Subdomain `client-{id}.{vps-ip}.nip.io`
 - [ ] Tests charge (100 conteneurs simultanés)
 
-### Sprint 7-8 : Agent IA Avancé (Semaine 7-8) ✅ PRIORITAIRE SOUTENANCE
+### Sprint 7-8 : Agent IA Avancé (Semaine 7-8)  PRIORITAIRE SOUTENANCE
 - [ ] Service `aiCodeModifier` (modification TSX/CSS)
 - [ ] Pipeline lint → build → logs → correction
 - [ ] Endpoint `/ai-modify-code`
@@ -872,7 +872,7 @@ await supabase.rpc('create_client_admin_profile', {
 - [ ] Auto-scaling : détection charge CPU → spawn nouveau VPS
 - [ ] Backup configs (snapshots quotidiens)
 
-### Sprint 11-12 : Soutenance & Polish (Semaine 11-12) ⚠️ LUNDI
+### Sprint 11-12 : Soutenance & Polish (Semaine 11-12)  LUNDI
 - [ ] Documentation technique complète
 - [ ] Benchmarks NLP vs LLM (slides)
 - [ ] Vidéo démo (2 min) : formulaire → site déployé
@@ -881,7 +881,7 @@ await supabase.rpc('create_client_admin_profile', {
 
 ---
 
-## 📊 STACK TECHNIQUE FINALISÉE
+## STACK TECHNIQUE FINALISÉE
 
 ### Production
 - **VPS** : Ubuntu 22.04 (min 8GB RAM, 4 vCPU)
@@ -912,7 +912,7 @@ jobs:
 
 ---
 
-## ⚠️ RISQUES & MITIGATIONS
+## RISQUES & MITIGATIONS
 
 | Risque | Impact | Mitigation |
 |--------|--------|------------|
@@ -924,7 +924,7 @@ jobs:
 
 ---
 
-## 🎯 LIVRABLES IMMÉDIATS (SOUTENANCE LUNDI)
+## LIVRABLES IMMÉDIATS (SOUTENANCE LUNDI)
 
 ### Pour la soutenance
 1. **Slide Deck** (15 slides max)
@@ -948,7 +948,7 @@ jobs:
 
 ---
 
-## 💡 RECOMMANDATIONS CTO
+## RECOMMANDATIONS CTO
 
 ### Court terme (avant soutenance)
 1. **Concentre-toi sur l'Agent IA** : c'est le différenciateur
@@ -970,7 +970,7 @@ jobs:
 
 ---
 
-## 📝 NOTES DE MISE EN ŒUVRE
+## NOTES DE MISE EN ŒUVRE
 
 ### Priorisation pour Soutenance (Lundi)
 1. **Module 2** : Supabase (tables clients + client_admins) → 2h
@@ -988,7 +988,7 @@ npm install @supabase/supabase-js
 
 ---
 
-**Document créé le** : 21 Janvier 2026  
-**Dernière mise à jour** : 21 Janvier 2026  
-**Auteur** : AI Technical Architect  
-**Statut** : 🚀 Implémentation en cours
+**Document créé le** : 21 Janvier 2026
+**Dernière mise à jour** : 21 Janvier 2026
+**Auteur** : AI Technical Architect
+**Statut** :  Implémentation en cours

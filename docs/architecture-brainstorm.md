@@ -47,7 +47,7 @@ src/components/blocks/
 │   ├── Contact/    (3 variants)
 │   ├── FooterCTA/  (3 variants)
 │   └── Footer/     (3 variants)
-├── auth/           (3 variants) ✅
+├── auth/           (3 variants)
 │   ├── CenteredCard   (carte centrée, fond gradient)
 │   ├── SplitImage     (formulaire gauche, image droite)
 │   └── Minimal        (épuré, fond uni)
@@ -95,11 +95,11 @@ Quand le client parle à l'agent, celui-ci doit savoir :
 
 | Page | Customisable | Status | Variants/Blocks |
 |------|--------------|--------|-----------------|
-| Homepage | ✅ Oui | ✅ Fait | 8 blocks × 3 variants |
-| Auth | ✅ Oui | ✅ Fait | 3 variants (centered-card, split-image, minimal) |
-| Page réservation | ✅ Oui | ⏳ À faire | ServiceSelector, TimeSlotPicker, BookingForm, Confirmation |
-| Mes réservations | ✅ Oui | ⏳ À faire | À définir |
-| Admin dashboard | ❌ Non | - | Interne, pas de personnalisation |
+| Homepage | Oui | Fait | 8 blocks × 3 variants |
+| Auth | Oui | Fait | 3 variants (centered-card, split-image, minimal) |
+| Page réservation | Oui | ⏳ À faire | ServiceSelector, TimeSlotPicker, BookingForm, Confirmation |
+| Mes réservations | Oui | ⏳ À faire | À définir |
+| Admin dashboard | Non | - | Interne, pas de personnalisation |
 
 ---
 

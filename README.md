@@ -11,7 +11,7 @@ per client.
 
 ---
 
-> ### ⚠️ Security notice — read before deploying
+> ### Security notice — read before deploying
 >
 > This project reads the OpenAI key through `VITE_OPENAI_API_KEY`. **Vite inlines
 > every `VITE_`-prefixed variable into the client bundle at build time**, so that

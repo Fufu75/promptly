@@ -1,8 +1,8 @@
-# 🧪 Plan de Tests Complet - Promptly
+# Plan de Tests Complet - Promptly
 
-## 📋 Checklist de Tests
+## Checklist de Tests
 
-### 🔐 **1. AUTHENTIFICATION**
+### **1. AUTHENTIFICATION**
 
 #### Test 1.1 : Inscription
 - [ ] Créer un compte client avec email valide
@@ -23,7 +23,7 @@
 
 ---
 
-### 👨‍💼 **2. INTERFACE ADMIN - CRÉATION DE SLOTS**
+### **2. INTERFACE ADMIN - CRÉATION DE SLOTS**
 
 #### Test 2.1 : Créer un slot simple
 - [ ] Créer un slot 9h-12h (doit réussir)
@@ -58,7 +58,7 @@
 
 ---
 
-### 📅 **3. INTERFACE ADMIN - GESTION DES SLOTS**
+### **3. INTERFACE ADMIN - GESTION DES SLOTS**
 
 #### Test 3.1 : Voir les détails d'un slot
 - [ ] Cliquer sur un slot vide → voir "Disponible - Aucune réservation"
@@ -82,7 +82,7 @@
 
 ---
 
-### 👤 **4. INTERFACE CLIENT - RÉSERVATION**
+### **4. INTERFACE CLIENT - RÉSERVATION**
 
 #### Test 4.1 : Sélection de service
 - [ ] Vérifier que tous les services configurés s'affichent
@@ -124,7 +124,7 @@
 
 ---
 
-### 🗑️ **5. ANNULATION DE RÉSERVATIONS**
+### **5. ANNULATION DE RÉSERVATIONS**
 
 #### Test 5.1 : Client annule sa réservation
 - [ ] Créer une réservation
@@ -147,7 +147,7 @@
 
 ---
 m
-### 📊 **6. STATISTIQUES ADMIN**
+### **6. STATISTIQUES ADMIN**
 
 #### Test 6.1 : Compteurs
 - [ ] Créer 3 slots → vérifier "Total des plages" = 3
@@ -162,7 +162,7 @@ m
 
 ---
 
-### 🌍 **7. INTERNATIONALISATION (i18n)**
+### **7. INTERNATIONALISATION (i18n)**
 
 #### Test 7.1 : Textes en français
 - [ ] Vérifier tous les boutons en français
@@ -176,7 +176,7 @@ m
 
 ---
 
-### 🔒 **8. SÉCURITÉ & PERMISSIONS (RLS)**
+### **8. SÉCURITÉ & PERMISSIONS (RLS)**
 
 #### Test 8.1 : Client ne peut pas accéder à l'admin
 - [ ] Se connecter en tant que client
@@ -196,7 +196,7 @@ m
 
 ---
 
-### ⚡ **9. EDGE CASES & BUGS POTENTIELS**
+### **9. EDGE CASES & BUGS POTENTIELS**
 
 #### Test 9.1 : Slot sur plusieurs jours (ne devrait pas être possible)
 - [ ] Essayer de créer un slot 23h (jour 1) - 1h (jour 2)
@@ -234,7 +234,7 @@ m
 
 ---
 
-### 🎨 **10. UI/UX**
+### **10. UI/UX**
 
 #### Test 10.1 : Responsive
 - [ ] Tester sur mobile (réduire la fenêtre)
@@ -251,7 +251,7 @@ m
 
 ---
 
-## 🚨 **TESTS CRITIQUES (À PRIORISER)**
+## **TESTS CRITIQUES (À PRIORISER)**
 
 ### Top 5 des failles potentielles à vérifier en priorité :
 
@@ -263,11 +263,11 @@ m
 
 ---
 
-## 📝 **Comment utiliser cette checklist**
+## **Comment utiliser cette checklist**
 
-1. Commence par les **tests critiques** (🚨)
-2. Coche chaque case ✅ ou note ❌ si ça échoue
-3. Pour chaque ❌, note le comportement observé
+1. Commence par les **tests critiques** ()
+2. Coche chaque case  ou note  si ça échoue
+3. Pour chaque , note le comportement observé
 4. Envoie-moi les résultats et je corrigerai les bugs
 
-Bon courage pour les tests ! 🚀
+Bon courage pour les tests !

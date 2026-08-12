@@ -1,10 +1,10 @@
-# 🚀 QUICKSTART - Demo Soutenance Promptly Generator v2.0
+# QUICKSTART - Demo Soutenance Promptly Generator v2.0
 
 Ce guide vous permet de lancer rapidement le projet pour la démonstration de lundi.
 
 ---
 
-## 📋 Prérequis
+## Prérequis
 
 - **Node.js 20+** installé
 - **Docker** et **Docker Compose** installés
@@ -13,7 +13,7 @@ Ce guide vous permet de lancer rapidement le projet pour la démonstration de lu
 
 ---
 
-## ⚡ Installation Rapide (Mode Dev)
+## Installation Rapide (Mode Dev)
 
 ### 1. Cloner et installer les dépendances
 
@@ -57,8 +57,8 @@ supabase db push
 # - Aller sur https://supabase.com/dashboard
 # - Ouvrir SQL Editor
 # - Copier-coller le contenu de :
-#   - supabase/migrations/00000000000000_initial_schema.sql
-#   - supabase/migrations/20260121000000_add_saas_multitenant.sql
+# - supabase/migrations/00000000000000_initial_schema.sql
+# - supabase/migrations/20260121000000_add_saas_multitenant.sql
 ```
 
 ### 4. Lancer Ollama (dans un terminal séparé)
@@ -93,7 +93,7 @@ Ouvrez votre navigateur : **http://localhost:5173**
 
 ---
 
-## 🎬 Scénario de Démonstration (Soutenance)
+## Scénario de Démonstration (Soutenance)
 
 ### Phase 1 : Configuration initiale (2 minutes)
 
@@ -134,31 +134,31 @@ Ouvrez votre navigateur : **http://localhost:5173**
 
 ---
 
-## 🔧 Fonctionnalités Clés à Démontrer
+## Fonctionnalités Clés à Démontrer
 
 ### 1. Architecture Multi-tenant
-- ✅ 1 utilisateur = plusieurs sites clients
-- ✅ Chaque site = 1 conteneur Docker
-- ✅ Sous-domaine unique (`client-{id}.vps-ip.nip.io`)
+- 1 utilisateur = plusieurs sites clients
+- Chaque site = 1 conteneur Docker
+- Sous-domaine unique (`client-{id}.vps-ip.nip.io`)
 
 ### 2. Agent IA Avancé
-- ✅ Modification du `config.json` (services, couleurs, horaires)
-- ✅ Modification du code source (TSX, CSS)
-- ✅ Self-correction via lint → build → logs → re-génération
-- ✅ Pipeline à 3 itérations max
+- Modification du `config.json` (services, couleurs, horaires)
+- Modification du code source (TSX, CSS)
+- Self-correction via lint → build → logs → re-génération
+- Pipeline à 3 itérations max
 
 ### 3. Déploiement Automatisé
-- ✅ Formulaire → Supabase → Edge Function → Backend Orchestrator
-- ✅ Création conteneur Docker + Nginx reverse proxy
-- ✅ Hot Reload (modification config → rechargement instantané)
+- Formulaire → Supabase → Edge Function → Backend Orchestrator
+- Création conteneur Docker + Nginx reverse proxy
+- Hot Reload (modification config → rechargement instantané)
 
 ### 4. Temps Réel
-- ✅ Supabase Realtime (status deployment : pending → deploying → deployed)
-- ✅ Logs de déploiement en direct
+- Supabase Realtime (status deployment : pending → deploying → deployed)
+- Logs de déploiement en direct
 
 ---
 
-## 🎯 Points à Mettre en Avant (Soutenance)
+## Points à Mettre en Avant (Soutenance)
 
 ### Différenciation LLM vs NLP Classique
 
@@ -168,7 +168,7 @@ Ouvrez votre navigateur : **http://localhost:5173**
 1. **Génération de code structuré** :
    - NLP : extraction d'entités → règles if/else rigides
    - LLM : génération JSON + TSX + CSS en one-shot
-   
+
 2. **Adaptabilité multi-domaines** :
    - NLP : 1 modèle par secteur (maintenance explosive)
    - LLM : généralisation cross-domain via few-shot learning
@@ -183,14 +183,14 @@ Ouvrez votre navigateur : **http://localhost:5173**
 
 ### Métriques à Citer
 
-- ⏱️ **Temps de génération** : < 2 min (questionnaire → site déployé)
-- 🎯 **Précision IA** : 85-90% de configs correctes au 1er coup
-- 🔁 **Self-correction** : 95% de succès après 3 itérations
-- 💰 **Coût** : 0€/requête (Ollama) vs 0.03€ (GPT-4)
+- ⏱ **Temps de génération** : < 2 min (questionnaire → site déployé)
+- **Précision IA** : 85-90% de configs correctes au 1er coup
+- **Self-correction** : 95% de succès après 3 itérations
+- **Coût** : 0€/requête (Ollama) vs 0.03€ (GPT-4)
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Problème 1 : Ollama ne répond pas
 
@@ -235,7 +235,7 @@ Vérifier que les URLs dans `.env` correspondent :
 
 ---
 
-## 📁 Structure du Projet (Référence)
+## Structure du Projet (Référence)
 
 ```
 book-wise-76/
@@ -272,7 +272,7 @@ book-wise-76/
 
 ---
 
-## 📞 Contact & Support
+## Contact & Support
 
 - **GitHub** : (à remplir)
 - **Email** : gabinfulcrand@gmail.com
@@ -280,7 +280,7 @@ book-wise-76/
 
 ---
 
-## ✅ Checklist Avant Soutenance
+## Checklist Avant Soutenance
 
 - [ ] Ollama fonctionne et modèle téléchargé
 - [ ] Supabase migrations appliquées
@@ -293,4 +293,4 @@ book-wise-76/
 
 ---
 
-**Bonne chance pour la soutenance ! 🚀**
+**Bonne chance pour la soutenance ! **

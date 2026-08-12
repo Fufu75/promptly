@@ -1,10 +1,10 @@
-# 🗄️ Configuration Supabase - Promptly Generator v2.0
+# Configuration Supabase - Promptly Generator v2.0
 
 Ce guide vous aide à configurer Supabase pour la gestion multi-projets.
 
 ---
 
-## 📋 Étape 1 : Appliquer les Migrations
+## Étape 1 : Appliquer les Migrations
 
 ### Via Supabase Dashboard (Recommandé)
 
@@ -14,11 +14,11 @@ Ce guide vous aide à configurer Supabase pour la gestion multi-projets.
    - Cliquer sur "SQL Editor" dans le menu gauche
 
 2. **Appliquer la migration**
-   - Copier **tout** le contenu du fichier :  
+   - Copier **tout** le contenu du fichier :
      `supabase/migrations/20260121000000_add_saas_multitenant.sql`
-   
+
    - Coller dans l'éditeur SQL
-   
+
    - Cliquer sur "Run" (en bas à droite)
 
 3. **Vérifier que ça a fonctionné**
@@ -39,7 +39,7 @@ supabase db push
 
 ---
 
-## ✅ Étape 2 : Vérifier la Configuration
+## Étape 2 : Vérifier la Configuration
 
 ### Vérifier que les tables existent
 
@@ -47,9 +47,9 @@ Dans le SQL Editor, exécuter :
 
 ```sql
 -- Lister toutes les tables
-SELECT table_name 
-FROM information_schema.tables 
-WHERE table_schema = 'public' 
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
 AND table_name IN ('clients', 'client_admins', 'deployment_logs', 'ai_modifications', 'profiles');
 ```
 
@@ -73,7 +73,7 @@ Si le bucket n'existe pas, créez-le manuellement :
 
 ---
 
-## 🔑 Étape 3 : Tester l'Authentification
+## Étape 3 : Tester l'Authentification
 
 ### Créer un compte test
 
@@ -90,7 +90,7 @@ Dans le SQL Editor :
 
 ```sql
 -- Voir tous les utilisateurs
-SELECT 
+SELECT
   u.id,
   u.email,
   p.full_name,
@@ -104,7 +104,7 @@ Vous devriez voir votre utilisateur test avec un profil.
 
 ---
 
-## 📊 Étape 4 : Tester la Création de Projet
+## Étape 4 : Tester la Création de Projet
 
 ### Via l'interface
 
@@ -118,7 +118,7 @@ Vous devriez voir votre utilisateur test avec un profil.
 
 ```sql
 -- Voir tous les projets
-SELECT 
+SELECT
   id,
   user_id,
   site_name,
@@ -133,7 +133,7 @@ Vous devriez voir votre projet avec `status = 'pending'`.
 
 ---
 
-## 🔧 Résolution de Problèmes
+## Résolution de Problèmes
 
 ### Erreur : "relation 'clients' does not exist"
 
@@ -148,7 +148,7 @@ Vous devriez voir votre projet avec `status = 'pending'`.
 **Solution** : Vérifier que vous êtes bien authentifié et que l'user_id correspond
 
 ```sql
--- Désactiver temporairement RLS pour debug (⚠️ en dev uniquement)
+-- Désactiver temporairement RLS pour debug ( en dev uniquement)
 ALTER TABLE public.clients DISABLE ROW LEVEL SECURITY;
 
 -- Tester l'insertion
@@ -171,12 +171,12 @@ ALTER TABLE public.clients ENABLE ROW LEVEL SECURITY;
 
 ---
 
-## 📝 Commandes SQL Utiles
+## Commandes SQL Utiles
 
 ### Voir tous les projets d'un utilisateur
 
 ```sql
-SELECT * FROM public.clients 
+SELECT * FROM public.clients
 WHERE user_id = 'USER_ID_HERE'
 ORDER BY created_at DESC;
 ```
@@ -184,14 +184,14 @@ ORDER BY created_at DESC;
 ### Supprimer tous les projets de test
 
 ```sql
--- ⚠️ ATTENTION : supprime TOUS les projets
+--  ATTENTION : supprime TOUS les projets
 DELETE FROM public.clients;
 ```
 
 ### Voir les logs de déploiement
 
 ```sql
-SELECT 
+SELECT
   dl.level,
   dl.message,
   dl.created_at,
@@ -205,7 +205,7 @@ LIMIT 20;
 ### Voir l'historique des modifications IA
 
 ```sql
-SELECT 
+SELECT
   am.user_prompt,
   am.success,
   am.iterations,
@@ -220,7 +220,7 @@ LIMIT 10;
 
 ---
 
-## ✅ Checklist Finale
+## Checklist Finale
 
 Avant la démo, vérifier que :
 
@@ -234,7 +234,7 @@ Avant la démo, vérifier que :
 
 ---
 
-## 🚀 Prochaines Étapes
+## Prochaines Étapes
 
 Une fois Supabase configuré :
 

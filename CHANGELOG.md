@@ -1,27 +1,27 @@
-# 📝 CHANGELOG - Promptly Generator v1.0 → v2.0
+# CHANGELOG - Promptly Generator v1.0 → v2.0
 
-**Date** : 21 Janvier 2026  
-**Version** : 2.0.0  
+**Date** : 21 Janvier 2026
+**Version** : 2.0.0
 **Type** : Major Update - Architecture SaaS Multi-tenant
 
 ---
 
-## 🎯 Vue d'Ensemble des Changements
+## Vue d'Ensemble des Changements
 
 ### Transformation Majeure
 - **v1.0** : Générateur mono-utilisateur, export ZIP manuel
 - **v2.0** : Plateforme SaaS multi-tenant avec déploiement Docker automatisé
 
 ### Objectifs Atteints
-✅ Architecture multi-tenant (1 client = 1 conteneur Docker)  
-✅ Déploiement automatique via Supabase → Backend → VPS  
-✅ Agent IA avancé (modification code TSX/CSS + self-correction)  
-✅ Hot Reload (modification config → rechargement instantané)  
-✅ Supabase comme source de vérité unique  
+ Architecture multi-tenant (1 client = 1 conteneur Docker)
+ Déploiement automatique via Supabase → Backend → VPS
+ Agent IA avancé (modification code TSX/CSS + self-correction)
+ Hot Reload (modification config → rechargement instantané)
+ Supabase comme source de vérité unique
 
 ---
 
-## 📁 Nouveaux Fichiers Créés
+## Nouveaux Fichiers Créés
 
 ### Documentation
 ```
@@ -75,7 +75,7 @@ supabase/functions/deploy-site/index.ts
 
 ---
 
-## 🔧 Fichiers Modifiés
+## Fichiers Modifiés
 
 ### package.json
 ```diff
@@ -92,7 +92,7 @@ supabase/functions/deploy-site/index.ts
 
 ---
 
-## 🗄️ Schéma Base de Données - Nouveautés
+## Schéma Base de Données - Nouveautés
 
 ### Nouvelles Tables
 
@@ -153,7 +153,7 @@ supabase/functions/deploy-site/index.ts
 
 ---
 
-## 🚀 Nouvelles Fonctionnalités
+## Nouvelles Fonctionnalités
 
 ### 1. Déploiement Multi-tenant
 - **Workflow** : Formulaire → Supabase INSERT → Edge Function → Orchestrator → Docker
@@ -190,7 +190,7 @@ supabase/functions/deploy-site/index.ts
 
 ---
 
-## 🔄 Modifications Comportementales
+## Modifications Comportementales
 
 ### SiteCreator.tsx
 - **Ajout composants** : `<AICodeModifier />`, `<DeploymentManager />`
@@ -208,7 +208,7 @@ supabase/functions/deploy-site/index.ts
 
 ---
 
-## 🐳 Infrastructure Docker
+## Infrastructure Docker
 
 ### Nouveaux Services
 
@@ -245,7 +245,7 @@ services:
 
 ---
 
-## 🔒 Sécurité - Améliorations
+## Sécurité - Améliorations
 
 ### RLS (Row Level Security)
 ```sql
@@ -282,22 +282,22 @@ headers: {
 
 ---
 
-## 📊 Métriques de Performance
+## Métriques de Performance
 
 ### Temps de Génération
 | Étape | v1.0 | v2.0 |
 |-------|------|------|
 | Questionnaire | 2 min | 2 min (identique) |
 | Chat IA | 3 min | 3 min (identique) |
-| Génération ZIP | 5 sec | ❌ Supprimé |
-| Déploiement | ❌ Manuel | ✅ 30-60 sec (auto) |
+| Génération ZIP | 5 sec | Supprimé |
+| Déploiement | Manuel | 30-60 sec (auto) |
 | **Total** | **5 min 5s** | **5 min 30s** |
 
 ### Coût par Site
 | Composant | v1.0 | v2.0 |
 |-----------|------|------|
 | IA (Ollama) | 0€ | 0€ |
-| Hébergement | ❌ Manuel | 0.10€/mois/client |
+| Hébergement | Manuel | 0.10€/mois/client |
 | VPS | - | 5€/mois (50 clients) |
 | **Total** | **0€** | **0.10€/client/mois** |
 
@@ -305,12 +305,12 @@ headers: {
 | Métrique | v1.0 | v2.0 |
 |----------|------|------|
 | Clients max | 1 | 50 par VPS |
-| Auto-scaling | ❌ | ✅ (spawn VPS si > 80% CPU) |
-| Isolation | ❌ | ✅ (conteneurs Docker) |
+| Auto-scaling | | (spawn VPS si > 80% CPU) |
+| Isolation | | (conteneurs Docker) |
 
 ---
 
-## 🎯 Migration v1.0 → v2.0
+## Migration v1.0 → v2.0
 
 ### Pour les Utilisateurs Existants
 
@@ -357,18 +357,18 @@ import { DeploymentManager } from '@/components/DeploymentManager';
 
 ---
 
-## 🐛 Breaking Changes
+## Breaking Changes
 
 ### 1. Backend API
-- ❌ Supprimé : `/generate-site` (ancien)
-- ✅ Nouveau : `/deploy-client` (orchestrator)
-- ✅ Nouveau : `/update-client-config` (hot reload)
-- ✅ Nouveau : `/ai-modify-code` (modification IA)
+- Supprimé : `/generate-site` (ancien)
+- Nouveau : `/deploy-client` (orchestrator)
+- Nouveau : `/update-client-config` (hot reload)
+- Nouveau : `/ai-modify-code` (modification IA)
 
 ### 2. Schéma Supabase
-- ⚠️ Nouvelle table `clients` requise
-- ⚠️ Nouveau rôle `super_admin` dans `profiles`
-- ⚠️ Storage bucket `client-configs` requis
+- Nouvelle table `clients` requise
+- Nouveau rôle `super_admin` dans `profiles`
+- Storage bucket `client-configs` requis
 
 ### 3. Variables d'Environnement
 ```diff
@@ -381,7 +381,7 @@ import { DeploymentManager } from '@/components/DeploymentManager';
 
 ---
 
-## 📝 TODO / Limitations Connues
+## TODO / Limitations Connues
 
 ### Court Terme (Avant Soutenance)
 - [ ] Tester le flow complet de déploiement 3 fois
@@ -403,7 +403,7 @@ import { DeploymentManager } from '@/components/DeploymentManager';
 
 ---
 
-## 🔗 Liens Utiles
+## Liens Utiles
 
 - **Spec technique complète** : `ARCHITECTURE_SAAS_V2.md`
 - **Guide démarrage rapide** : `QUICKSTART_DEMO.md`
@@ -414,7 +414,7 @@ import { DeploymentManager } from '@/components/DeploymentManager';
 
 ---
 
-## 📞 Support
+## Support
 
 - **GitHub** : (à remplir)
 - **Email** : gabinfulcrand@gmail.com
@@ -422,7 +422,7 @@ import { DeploymentManager } from '@/components/DeploymentManager';
 
 ---
 
-**Version** : 2.0.0  
-**Date de Release** : 21 Janvier 2026  
-**Auteur** : Gabin Fulcrand & Thomas Sena  
-**Statut** : ✅ Prêt pour Soutenance
+**Version** : 2.0.0
+**Date de Release** : 21 Janvier 2026
+**Auteur** : Gabin Fulcrand & Thomas Sena
+**Statut** :  Prêt pour Soutenance

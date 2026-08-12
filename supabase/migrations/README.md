@@ -1,6 +1,6 @@
 # Migrations Promptly
 
-## 📋 Structure
+## Structure
 
 Ce dossier contient la migration consolidée du schéma de base de données.
 
@@ -21,7 +21,7 @@ Les fichiers suivants sont conservés pour historique mais ne sont **plus néces
 
 ---
 
-## 🚀 Utilisation pour un nouveau client
+## Utilisation pour un nouveau client
 
 ### 1. Créer un nouveau projet Supabase
 ```bash
@@ -58,7 +58,7 @@ Modifier dans le dashboard Supabase (Table Editor → settings) :
 
 ---
 
-## 🔧 Reset complet (développement)
+## Reset complet (développement)
 
 Si besoin de tout réinitialiser :
 
@@ -74,7 +74,7 @@ npx supabase db reset
 
 ---
 
-## 📝 Nettoyage (optionnel)
+## Nettoyage (optionnel)
 
 Pour supprimer les anciennes migrations et garder uniquement la version consolidée :
 
@@ -90,7 +90,7 @@ rm supabase/migrations/20251107*.sql
 
 ---
 
-## ✅ Checklist déploiement nouveau client
+## Checklist déploiement nouveau client
 
 - [ ] Créer projet Supabase
 - [ ] Configurer `.env`

@@ -2,14 +2,14 @@
 
 Ce guide vous explique comment héberger Ollama sur un serveur cloud pour utiliser l'IA dans l'application de génération de sites de réservation.
 
-## 🎯 Pourquoi Ollama ?
+## Pourquoi Ollama ?
 
 - **Gratuit** : Pas de coût par requête, seulement l'hébergement du serveur
 - **Open Source** : Modèles libres et modifiables
 - **Performant** : Peut tourner sur des instances cloud standards
 - **API simple** : Facile à intégrer
 
-## 📦 Option 1 : Installation sur serveur cloud (recommandé)
+## Option 1 : Installation sur serveur cloud (recommandé)
 
 ### Prérequis
 - Un serveur cloud (AWS EC2, DigitalOcean, Hetzner, OVH, etc.)
@@ -112,7 +112,7 @@ server {
         proxy_pass http://localhost:11434;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
-        
+
         # Basic Auth (optionnel)
         auth_basic "Ollama API";
         auth_basic_user_file /etc/nginx/.htpasswd;
@@ -120,7 +120,7 @@ server {
 }
 ```
 
-## 📦 Option 2 : Installation locale (développement)
+## Option 2 : Installation locale (développement)
 
 Pour tester en local avant de déployer :
 
@@ -137,7 +137,7 @@ ollama serve
 # Télécharger depuis https://ollama.com/download
 ```
 
-## 🔧 Configuration dans l'application
+## Configuration dans l'application
 
 ### Variables d'environnement
 
@@ -155,12 +155,12 @@ VITE_OLLAMA_MODEL=llama3.2
 
 | Modèle | Taille | RAM min | Qualité | Usage |
 |--------|--------|---------|---------|-------|
-| `llama3.2` | ~2GB | 4GB | ⭐⭐⭐ | Développement, tests |
-| `llama3.1:8b` | ~4.6GB | 8GB | ⭐⭐⭐⭐ | Production légère |
-| `mistral` | ~4.1GB | 8GB | ⭐⭐⭐⭐ | Production |
-| `codellama` | ~3.8GB | 8GB | ⭐⭐⭐⭐⭐ | Génération de code |
+| `llama3.2` | ~2GB | 4GB | | Développement, tests |
+| `llama3.1:8b` | ~4.6GB | 8GB | | Production légère |
+| `mistral` | ~4.1GB | 8GB | | Production |
+| `codellama` | ~3.8GB | 8GB | | Génération de code |
 
-## 🚀 Déploiement sur différents providers
+## Déploiement sur différents providers
 
 ### DigitalOcean Droplet
 
@@ -188,7 +188,7 @@ VITE_OLLAMA_MODEL=llama3.2
 2. Installer Ollama
 3. Coût : ~€10-15/mois
 
-## 🧪 Tester la connexion
+## Tester la connexion
 
 ```bash
 # Depuis votre machine locale
@@ -197,7 +197,7 @@ curl http://votre-serveur.com:11434/api/tags
 # Devrait retourner la liste des modèles installés
 ```
 
-## 📊 Monitoring
+## Monitoring
 
 Pour surveiller l'utilisation :
 
@@ -211,7 +211,7 @@ htop
 docker stats  # si utilisé avec Docker
 ```
 
-## 🔄 Mise à jour
+## Mise à jour
 
 ```bash
 # Mettre à jour Ollama
@@ -221,7 +221,7 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama pull llama3.2
 ```
 
-## 🐳 Option Docker (alternative)
+## Option Docker (alternative)
 
 Si vous préférez Docker :
 
@@ -230,7 +230,7 @@ docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 docker exec -it ollama ollama pull llama3.2
 ```
 
-## ⚠️ Troubleshooting
+## Troubleshooting
 
 ### Ollama ne répond pas
 ```bash
@@ -252,14 +252,14 @@ Si vous avez des erreurs CORS depuis le frontend, ajoutez dans votre configurati
 - Augmentez la RAM du serveur
 - Utilisez un GPU si disponible
 
-## 📝 Notes importantes
+## Notes importantes
 
 1. **Sécurité** : Ne laissez jamais Ollama ouvert publiquement sans protection
 2. **Performance** : Les modèles plus gros = meilleure qualité mais plus lent
 3. **Coûts** : Seulement l'hébergement du serveur, pas de coût par requête
 4. **Backup** : Les modèles sont stockés dans `~/.ollama`, pensez à les sauvegarder
 
-## 🔗 Ressources
+## Ressources
 
 - [Documentation Ollama](https://github.com/ollama/ollama)
 - [Liste des modèles](https://ollama.com/library)
