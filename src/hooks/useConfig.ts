@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import config from '@/config/config.json';
+import type { Service } from '@/types/service';
 
 export interface Config {
   brandName: string;
@@ -69,14 +70,11 @@ export interface Config {
     twitter: string;
     linkedin: string;
   };
-  services: {
-    id: string;
-    name: string;
-    description: string;
-    duration: number;
-    price: number;
-    enabled: boolean;
-  }[];
+  // Une seule déclaration fait foi : Service, dans @/types/service. La forme
+  // était auparavant recopiée ici et dans services/ai/types.ts, et les copies
+  // avaient divergé — le champ `color`, pourtant écrit et lu par le code,
+  // manquait aux trois.
+  services: Service[];
 }
 
 export const useConfig = () => {

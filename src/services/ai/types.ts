@@ -1,4 +1,5 @@
 import type { PageBlock } from '@/components/PageRenderer';
+import type { Service } from '@/types/service';
 
 // ─── Configs générées par l'IA ───────────────────────────────────────────────
 
@@ -6,14 +7,7 @@ export interface GlobalConfig {
   brandName: string;
   businessSector: string;
   accentColor: string;
-  services: Array<{
-    id: string;
-    name: string;
-    description: string;
-    duration: number;
-    price: number;
-    enabled: boolean;
-  }>;
+  services: Service[];
   openingHours: Record<string, string>;
   contact: { email: string; phone: string; address: string };
 }

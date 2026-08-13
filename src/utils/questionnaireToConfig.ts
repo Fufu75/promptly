@@ -32,9 +32,18 @@ export function questionnaireAnswersToConfig(
 
   // Horaires d'ouverture
   if (answers.opening_days?.value && answers.opening_hours?.value) {
-    const days = answers.opening_days.value; // Peut être string ou string[]
-    const hours = answers.opening_hours.value as string;
-    
+    // `value` couvre tous les types de réponse (nombre, ServiceAnswer[]…), on
+    // resserre donc sur ce que generateOpeningHours sait traiter plutôt que de
+    // caster : une réponse d'un autre type donne une liste vide, pas un crash.
+    const rawDays = answers.opening_days.value;
+    const days: string | string[] =
+      typeof rawDays === 'string'
+        ? rawDays
+        : Array.isArray(rawDays)
+          ? rawDays.filter((day): day is string => typeof day === 'string')
+          : [];
+    const hours = String(answers.opening_hours.value);
+
     config.openingHours = generateOpeningHours(days, hours);
   }
 

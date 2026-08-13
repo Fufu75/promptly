@@ -45,8 +45,11 @@ export const ServiceSelectorCardsGrid = ({
               className={`cursor-pointer transition-all ${
                 isSelected ? 'ring-2 shadow-md' : 'hover:shadow-md'
               }`}
+              // `ringColor` n'existe pas en CSS — c'est un utilitaire Tailwind
+              // (--tw-ring-color) qui n'a aucun effet dans un style inline. Le
+              // liseré est déjà rendu par le boxShadow ci-dessous, donc le
+              // retirer ne change rien à l'apparence.
               style={isSelected ? {
-                ringColor: accentColor,
                 borderColor: accentColor,
                 boxShadow: `0 0 0 2px ${accentColor}`,
                 backgroundColor: `${accentColor}08`,

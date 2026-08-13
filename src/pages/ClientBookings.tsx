@@ -91,8 +91,20 @@ const ClientBookings = () => {
     const endTime = new Date(startTime);
     endTime.setMinutes(endTime.getMinutes() + service.duration);
 
+    // bookings.client_id est NOT NULL : c'est la colonne qui rattache la
+    // réservation à un site client, et sur laquelle repose l'isolation RLS.
+    // Elle vient du profil, renseigné à l'inscription. Elle était absente de
+    // l'insert, qui échouait donc côté base — mieux vaut un message clair.
+    if (!profile.client_id) {
+      toast.error(
+        "Votre compte n'est rattaché à aucun établissement. Contactez l'administrateur du site."
+      );
+      return;
+    }
+
     // Créer la réservation (sans slot_id car on n'utilise plus la table slots)
     const { error: bookingError } = await supabase.from('bookings').insert({
+      client_id: profile.client_id,
       user_id: profile.id,
       service_id: service.id,
       duration: service.duration,
