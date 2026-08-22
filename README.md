@@ -11,23 +11,6 @@ per client.
 
 ---
 
-> ### Where the OpenAI key lives, and why
->
-> The key is read from `OPENAI_API_KEY` by `server/index.js` and **never reaches
-> the browser**. The client posts its messages to `POST {VITE_SITEGEN_URL}/ai/chat`
-> and the server relays them to OpenAI.
->
-> The `VITE_` prefix is deliberately absent: Vite inlines every `VITE_`-prefixed
-> variable into the client bundle at build time, so a key named
-> `VITE_OPENAI_API_KEY` would be served to every visitor and extractable from the
-> JavaScript in seconds. An earlier version of this project did exactly that.
->
-> Practical consequence: **the server must be running** for generation to work,
-> in development too — `npm run dev:all` starts the front end and the server
-> together.
-
----
-
 ## How it works
 
 ```
@@ -108,7 +91,6 @@ Setup guides: [Supabase](./docs/supabase-setup.md) · [environment](./docs/env-c
 
 ## Known limitations
 
-- The OpenAI key is exposed client-side — see the security notice above.
 - No automated test suite; [`docs/test-scenarios.md`](./docs/test-scenarios.md)
   lists manual scenarios only.
 
